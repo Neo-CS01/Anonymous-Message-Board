@@ -77,9 +77,9 @@ module.exports = function (app) {
       res.redirect(`/b/${board}/`);
     })
     .put(async function (req, res) {
-      const { report_id } = req.body;
+      const { thread_id } = req.body;  // Sử dụng thread_id thay vì report_id
       console.time("[PUT] - /api/threads/:board");
-      const thread = getThreadById(report_id);
+      const thread = getThreadById(thread_id);
       console.timeEnd("[PUT] - /api/threads/:board");
       if (!thread) return res.send("Not found");
       thread.reported = true;
@@ -168,7 +168,6 @@ module.exports = function (app) {
       reply.reported = true;
 
       console.timeEnd("[PUT] - /api/replies/:board");
-      if (!reply) return res.send("Not found");
       res.send("reported");
     })
     .delete(async function (req, res) {

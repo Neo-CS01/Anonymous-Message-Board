@@ -175,6 +175,13 @@ suite("Functional Tests", function () {
         });
     });
   });
+  chai.request(server)
+  .put('/api/threads/myboard')
+  .send({ thread_id: '60c72b2f9b1d4b1f843f4b90' })
+  .end((err, res) => {
+    assert.equal(res.text, 'reported');
+    done();
+  });
   test("Deleting a thread with the correct password: DELETE request to /api/threads/{board} with a valid delete_password", function (done) {
     promiseThread().then((threads) => {
       chai
