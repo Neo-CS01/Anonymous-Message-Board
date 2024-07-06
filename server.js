@@ -62,7 +62,7 @@ app.use(function(req, res, next) {
 });
 
 //Start our server and tests!
-const listener = server.listen(process.env.PORT || 3001, function () {
+const listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
   if(process.env.NODE_ENV==='test') {
     console.log('Running Tests...');
@@ -73,7 +73,7 @@ const listener = server.listen(process.env.PORT || 3001, function () {
         console.log('Tests are not valid:');
         console.error(e);
       }
-    }, 5000);
+    }, 3500);
   }
 });
 
