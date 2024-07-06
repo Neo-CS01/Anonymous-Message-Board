@@ -73,7 +73,7 @@ const listener = server.listen(process.env.PORT || 3000, function () {
         console.log('Tests are not valid:');
         console.error(e);
       }
-    }, 1500);
+    }, 5000);
   }
 });
 
