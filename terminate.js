@@ -1,9 +1,3 @@
-/**
- * Alternate Server GraceFull Shutdown packages
- * https://github.com/sebhildebrandt/http-graceful-shutdown
- * https://github.com/godaddy/terminus
- * https://github.com/hunterloftis/stoppable
- */
 
 function terminate(server, options = { coredump: false, timeout: 500 }) {
   // Exit function

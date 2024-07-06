@@ -9,7 +9,6 @@ exports.generateHashPassword = async (password) => {
         });
     });
 }
-
 exports.compareHashPassword = async (password, hash) => {
     return new Promise((resolve, reject) => {
         const [key, salt] = hash.split(".");
@@ -19,4 +18,3 @@ exports.compareHashPassword = async (password, hash) => {
         });
     });
 }
-
