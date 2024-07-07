@@ -9,7 +9,7 @@ const terminate = require('./terminate');
 const apiRoutes = require('./routes/api.js');
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
-// const db = require("./db"); // Uncomment if using a database
+const db = require("./db"); // Uncomment if using a database
 
 const app = express();
 const server = http.createServer(app);
