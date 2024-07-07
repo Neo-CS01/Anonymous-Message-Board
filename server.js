@@ -1,5 +1,4 @@
 'use strict';
-
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -16,36 +15,32 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const rootDir = process.cwd();
 
-// Security setup using Helmet
 app.use(helmet({
   referrerPolicy: { policy: "same-origin" },
   dnsPrefetchControl: { allow: false },
-  frameguard: { action: "sameorigin" },
-  hidePoweredBy: { setTo: 'PHP 4.2.0' }, // Example of hiding X-Powered-By
-  hsts: { maxAge: 63072000, includeSubDomains: true } // Example of HSTS
+  frameguard: { action: "sameorigin" }
 }));
 
-// Middleware setup
 app.use('/public', express.static(`${rootDir}/public`));
 app.use(cors({ origin: '*' })); // For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Route for sample front-end
+// Sample front-end
 app.route('/b/:board/')
   .get((req, res) => res.sendFile(`${rootDir}/views/board.html`));
 
 app.route('/b/:board/:threadid')
   .get((req, res) => res.sendFile(`${rootDir}/views/thread.html`));
 
-// Route for index page
+// Index page (static HTML)
 app.route('/')
   .get((req, res) => res.sendFile(`${rootDir}/views/index.html`));
 
-// FCC testing routes
+// For FCC testing purposes
 fccTestingRoutes(app);
 
-// API routes
+// Routing for API
 apiRoutes(app);
 
 // 404 Not Found Middleware
@@ -55,7 +50,7 @@ app.use((req, res) => {
     .send('Not Found');
 });
 
-// Start server and run tests if in test environment
+// Start server and tests
 const listener = app.listen(PORT, () => {
   console.log(`Your app is listening on port ${listener.address().port}`);
   if (NODE_ENV === 'test') {
@@ -71,7 +66,6 @@ const listener = app.listen(PORT, () => {
   }
 });
 
-// Graceful shutdown setup
 const exitHandler = terminate(server, { coredump: false, timeout: 500 });
 
 process.on('uncaughtException', exitHandler(1, 'Unexpected Error'));
