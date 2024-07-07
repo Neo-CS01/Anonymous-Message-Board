@@ -11,7 +11,7 @@ const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const rootDir = process.cwd();
 
