@@ -11,21 +11,21 @@
 </head>
 <body>
   <header>
-    <h1 id='boardTitle'></h1>
+    <h1 id="boardTitle"></h1> <!-- Corrected: id attribute in double quotes -->
   </header>
 
-  <div id='submitNewThread'>
+  <div id="submitNewThread">
     <h3>Submit a new thread:</h3>
-    <form id="newThread" method="post" action="/api/">
-      <textarea rows="8" cols="120" type='text' placeholder='Thread text...' name='text' required></textarea><br>
-      <input type='text' placeholder='password to delete' name='delete_password' required><br>
+    <form id="newThread" method="post" action="/api/threads/">
+      <textarea rows="8" cols="120" type="text" placeholder="Thread text..." name="text" required></textarea><br>
+      <input type="text" placeholder="password to delete" name="delete_password" required><br>
       <input type="submit" value="Submit">
     </form>
   </div>
 
-  <div id='boardDisplay'></div>
+  <div id="boardDisplay"></div>
 
-  <hr style='margin: 50px; margin-top: 200px'>
+  <hr style="margin: 50px; margin-top: 200px">
 
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"
           integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
@@ -34,7 +34,7 @@
     $(function() {
       var currentBoard = window.location.pathname.slice(3, -1);
       var url = "/api/threads/" + currentBoard;
-      $('#boardTitle').text('Welcome to ' + window.location.pathname);
+      $('#boardTitle').text('Welcome to ' + currentBoard);
 
       function loadBoard() {
         $.ajax({
@@ -52,7 +52,7 @@
                     '<h3>' + ele.text + '</h3>',
                   '</div>',
                   '<div class="replies">',
-                    '<h5>' + ele.replycount + ' replies total (' + (ele.replycount - 3 < 1 ? 0 : ele.replycount - 3) + ' hidden)- <a href="' + window.location.pathname + ele._id + '">See the full thread here</a>.</h5>',
+                    '<h5>' + ele.replycount + ' replies total (' + (ele.replycount - 3 < 1 ? 0 : ele.replycount - 3) + ' hidden)- <a href="' + currentBoard + '/' + ele._id + '">See the full thread here</a>.</h5>',
                     ele.replies.map(function(rep) {
                       return [
                         '<div class="reply">',

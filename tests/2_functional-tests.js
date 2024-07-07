@@ -87,4 +87,8 @@ suite("Functional Tests", function () {
       .end(function (err, res) {
         assert.equal(res.status, 200);
         assert.isObject(res.body, "response should be an object");
-        assert.property(res.body, 'text', 'Thread 
+        assert.property(res.body, 'text', 'Thread should contain text');
+        done();
+      });
+  });
+});
