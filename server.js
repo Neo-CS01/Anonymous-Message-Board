@@ -9,8 +9,6 @@ const terminate = require('./terminate');
 const apiRoutes = require('./routes/api.js');
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
-const db = require("./db"); // Uncomment if using a database
-
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
