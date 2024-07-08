@@ -3,6 +3,7 @@ const chai = require("chai");
 const assert = chai.assert;
 const server = require("../server");
 const { threads } = require("../mock/threads");
+const Thread = require('../models/thread');
 
 chai.use(chaiHttp);
 
@@ -13,6 +14,12 @@ suite("Functional Tests", function () {
       console.log("Server is running");
       done();
     });
+  });
+
+  before(async function() {
+    // Seed initial data
+    await Thread.deleteMany({});
+    await Thread.insertMany(threads);
   });
 
   // Clean up after all tests are done
