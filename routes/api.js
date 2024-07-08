@@ -183,7 +183,7 @@ module.exports = function (app) {
         }
 
         reply.text = "[deleted]";
-
+  
         console.timeEnd("[DELETE] - /api/replies/:board");
         res.send("success");
       } catch (err) {
