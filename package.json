@@ -1,61 +1,35 @@
 {
-
-	"name": "freecodecamp-anonymous-messageboard-project",	"version": "0.0.1",
-
-	"description": "Anonymous Messagebaord project for freeCodeCamp",
-
-	"main": "server.js",
-
-	"scripts": {
-
-		"start": "node server.js"
-
-	},
-
-	"dependencies": {
-
-		"argon2": "^0.30.2",
-
-		"body-parser": "^1.15.2",
-
-		"chai": "^4.2.0",
-
-		"chai-http": "^3.0.0",
-
-    em 
-    
-		"cors": "^2.8.1",
-
-		"dotenv": "^8.2.0",
-
-		"express": "^4.14.0",
-
-		"helmet": "^3.23.3",
-
-		"mocha": "^3.2.0",
-
-		"mongoose": "^6.7.2"
-
-	},
-
-	"repository": {
-
-		"type": "git",
-
-		"url": "https://github.com/paalamugan/freecodecamp-anonymous-messageboard-project"
-
-	},
-
-	"keywords": [
-
-		"node",
-
-		"express",
-
-		"mongoose"
-
-	],
-
-	"license": "MIT"
-
+  "name": "freecodecamp-anonymous-messageboard-project",
+  "version": "0.0.1",
+  "description": "Anonymous Messagebaord project for freeCodeCamp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "argon2": "^0.40.3",
+    "body-parser": "^1.20.2",
+    "chai": "^5.1.1",
+    "chai-http": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "mocha": "^10.6.0",
+    "mongoose": "^8.4.5",
+    "unifi-protect-node-16": "^4.8.1"
+  },
+  "engines": { 
+    "node": "16.x"
+},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paalamugan/freecodecamp-anonymous-messageboard-project"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongoose"
+  ],
+  "license": "MIT"
 }
