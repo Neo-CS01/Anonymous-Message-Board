@@ -62,7 +62,7 @@ const listener = app.listen(PORT, () => {
         console.log('Tests are not valid:');
         console.error(e);
       }
-    }, 3500);
+    }, 5000);
   }
 });
 
