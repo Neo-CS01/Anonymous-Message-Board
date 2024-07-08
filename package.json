@@ -2,13 +2,14 @@
   "name": "freecodecamp-anonymous-messageboard-project",
   "version": "1.0.0",
   "description": "Anonymous Messageboard project for freeCodeCamp",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha"
+    "start": "node server.js",
+    "test": "mocha",
+   "type": "module"
   },
   "engines": {
-    "node": "14.19.1"
+    "node": ">=16.14.2"
   },
   "dependencies": {
     "argon2": "0.28.3",
