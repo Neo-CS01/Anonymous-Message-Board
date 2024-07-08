@@ -19,6 +19,9 @@
     "mocha": "^10.6.0",
     "mongoose": "^8.4.5"
   },
+  "engines": {
+  "node": "16.14.1"
+},
   "repository": {
     "type": "git",
     "url": "https://github.com/freecodecamp-anonymous-messageboard-project"
