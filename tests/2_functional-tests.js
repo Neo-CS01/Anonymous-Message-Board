@@ -4,7 +4,7 @@ const assert = chai.assert;
 const server = require("../server");
 const { threads } = require("../mock/threads");
 const Thread = require('../models/thread');
-
+const fn = require('./lib/http.js');
 chai.use(chaiHttp);
 
 suite("Functional Tests", function () {
