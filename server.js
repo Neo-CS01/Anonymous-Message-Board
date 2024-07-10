@@ -14,7 +14,12 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const rootDir = process.cwd();
-
+const mongoose = require('mongoose');
+const ThreadSchema = new mongoose.Schema({
+  // Define schema fields
+});
+const Thread = mongoose.model('Thread', ThreadSchema);
+module.exports = Thread;
 app.use(helmet({
   referrerPolicy: { policy: "same-origin" },
   dnsPrefetchControl: { allow: false },
