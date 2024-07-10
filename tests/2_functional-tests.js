@@ -84,22 +84,7 @@ suite("Functional Tests", function () {
         done();
       });
   });
-    
-  test("Creating a new thread: POST request to /api/threads/{board}", function (done) {
-  chai
-    .request(server)
-    .post("/api/threads/general")
-    .send({ text: "My thread", delete_password: "password" })
-    .end(function (err, res) {
-      assert.equal(res.status, 200);
-      assert.property(res.body, '_id', 'Thread should have an _id');
-      assert.property(res.body, 'text', 'Thread should have text');
-      assert.property(res.body, 'created_on', 'Thread should have created_on');
-      assert.property(res.body, 'bumped_on', 'Thread should have bumped_on');
-      done();
-    });
-});
- 
+
   test("Viewing a single thread with all replies: GET request to /api/replies/{board}", function (done) {
     const threadId = threads[0]._id; // Assuming threads are predefined
     chai

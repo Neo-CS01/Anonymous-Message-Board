@@ -116,34 +116,11 @@ module.exports = function (app) {
         text: reply.text,
         created_on: reply.created_on
       }));
-  app.route("/api/threads/:board")
-  .post(async function (req, res) {
-    const board = req.params.board;
-    const { text, delete_password } = req.body;
-    console.log("[POST] - /api/threads/:board - body:", req.body); // Thêm logs
-
-    let currentDate = getCurrentDate();
-    let data = {
-      _id: generateKey(),
-      board,
-      text,
-      delete_password,
-      created_on: currentDate,
-      bumped_on: currentDate,
-      reported: false,
-      replies: []
-    };
-
-    threads.push(data);
-    console.log("[POST] - /api/threads/:board - data:", data); // Thêm logs
-
-    res.redirect(`/b/${board}/`);
-  });
 
       console.timeEnd("[GET] - /api/replies/:board");
       res.json(newThread);
     })
-  
+
     .post(async function (req, res) {
       const board = req.params.board;
       console.time("[POST] - /api/replies/:board");

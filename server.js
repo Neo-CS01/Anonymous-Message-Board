@@ -74,5 +74,3 @@ process.on('SIGTERM', exitHandler(0, 'SIGTERM'));
 process.on('SIGINT', exitHandler(0, 'SIGINT'));
 
 module.exports = server; // for testing
-
-
