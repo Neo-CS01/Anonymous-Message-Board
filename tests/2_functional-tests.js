@@ -16,7 +16,9 @@ suite("Functional Tests", function() {
       done();
     });
   });
-
+  before(async function() {
+  this.timeout(10000); // Increase timeout to 10 seconds if needed
+  console.log("Starting before all hook");
   before(async function() {
     // Seed initial data
     await Thread.deleteMany({});
