@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const ThreadSchema = new mongoose.Schema({
+const threadSchema = new mongoose.Schema({
   // Define schema fields
 });
 
-const Thread = mongoose.model('Thread', ThreadSchema);
+const thread = mongoose.model('thread', threadSchema);
 
-module.exports = Thread;
+module.exports = thread;

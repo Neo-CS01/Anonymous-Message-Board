@@ -24,4 +24,10 @@ ReplySchema.methods.toJSON = function () {
   return obj;
 };
 
-module.exports = mongoose.model("Reply", ReplySchema);
+const modelName = "Reply";
+
+if (mongoose.models[modelName]) {
+  module.exports = mongoose.models[modelName];
+} else {
+  module.exports = mongoose.model(modelName, ReplySchema);
+}
