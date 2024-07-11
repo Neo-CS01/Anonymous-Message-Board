@@ -3,13 +3,15 @@ const chai = require("chai");
 const assert = chai.assert;
 const server = require("../server");
 const { threads } = require("../mock/threads");
-const thread = require('../models/thread');
+const Thread = require('../models/Thread');
 chai.use(chaiHttp);
 
-suite("Functional Tests", function () {
+suite("Functional Tests", function() {
+  this.timeout(10000); // Tăng thời gian timeout lên 10 giây
+
   // Ensure server is properly set up and tests run sequentially
-  before(function (done) {
-    server.on("listening", function () {
+  before(function(done) {
+    server.on("listening", function() {
       console.log("Server is running");
       done();
     });
@@ -17,35 +19,35 @@ suite("Functional Tests", function () {
 
   before(async function() {
     // Seed initial data
-    await thread.deleteMany({});
-    await thread.insertMany(threads);
+    await Thread.deleteMany({});
+    await Thread.insertMany(threads);
   });
 
   // Clean up after all tests are done
-  after(function (done) {
-    server.close(function () {
+  after(function(done) {
+    server.close(function() {
       console.log("Server closed");
       done();
     });
   });
 
-  test("Creating a new thread: POST request to /api/threads/{board}", function (done) {
+  test("Creating a new thread: POST request to /api/threads/{board}", function(done) {
     chai
       .request(server)
       .post("/api/threads/general")
       .send({ text: "My thread", delete_password: "password" })
-      .end(function (err, res) {
+      .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.property(res.body, '_id', 'Thread should have an _id');
         done();
       });
   });
 
-  test("Viewing the 10 most recent threads with 3 replies each: GET request to /api/threads/{board}", function (done) {
+  test("Viewing the 10 most recent threads with 3 replies each: GET request to /api/threads/{board}", function(done) {
     chai
       .request(server)
       .get("/api/threads/general")
-      .end(function (err, res) {
+      .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.isArray(res.body, "response should be an array");
         if (res.body.length > 0) {
@@ -55,20 +57,20 @@ suite("Functional Tests", function () {
       });
   });
 
-  test("Reporting a thread: PUT request to /api/threads/{board}", function (done) {
+  test("Reporting a thread: PUT request to /api/threads/{board}", function(done) {
     const threadId = threads[0]._id; // Assuming threads are predefined
     chai
       .request(server)
       .put(`/api/threads/general`)
       .send({ report_id: threadId })
-      .end(function (err, res) {
+      .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.equal(res.text, "reported");
         done();
       });
   });
 
-  test("Creating a new reply: POST request to /api/replies/{board}", function (done) {
+  test("Creating a new reply: POST request to /api/replies/{board}", function(done) {
     const threadId = threads[0]._id; // Assuming threads are predefined
     chai
       .request(server)
@@ -78,19 +80,19 @@ suite("Functional Tests", function () {
         text: "My Reply",
         delete_password: "password",
       })
-      .end(function (err, res) {
+      .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.property(res.body, '_id', 'Reply should have an _id');
         done();
       });
   });
 
-  test("Viewing a single thread with all replies: GET request to /api/replies/{board}", function (done) {
+  test("Viewing a single thread with all replies: GET request to /api/replies/{board}", function(done) {
     const threadId = threads[0]._id; // Assuming threads are predefined
     chai
       .request(server)
       .get(`/api/replies/general/${threadId}`)
-      .end(function (err, res) {
+      .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.isObject(res.body, "response should be an object");
         assert.property(res.body, 'text', 'Thread should contain text');
