@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Database connected'))
+  .catch(err => console.error(err));
 
 const db = mongoose.connection;
 
@@ -16,3 +13,5 @@ db.once('open', () => {
 });
 
 module.exports = db;
+
+
