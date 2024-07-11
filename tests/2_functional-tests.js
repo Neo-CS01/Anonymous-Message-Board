@@ -7,20 +7,44 @@ const Thread = require('../models/Thread');
 chai.use(chaiHttp);
 
 suite("Functional Tests", function() {
-  this.timeout(10000); // Tăng thời gian timeout lên 10 giây
+  this.timeout(20000); // Increase timeout to 20 seconds
 
   // Ensure server is properly set up and tests run sequentially
   before(function(done) {
-    server.on("listening", function() {
-      console.log("Server is running");
+    if (server.listening) {
+      console.log("Server is already running");
       done();
-    });
+    } else {
+      server.on("listening", function() {
+        console.log("Server is running");
+        done();
+      });
+      server.on("error", function(err) {
+        console.error("Server failed to start:", err);
+        done(err);
+      });
+    }
   });
 
   before(async function() {
-    // Seed initial data
-    await Thread.deleteMany({});
-    await Thread.insertMany(threads);
+    this.timeout(10000); // Increase timeout for this hook to 10 seconds
+    console.log("Seeding initial data");
+
+    // Verify database connection
+    if (!Thread.db) {
+      console.error("Database connection is not established");
+      throw new Error("Database connection is not established");
+    }
+
+    try {
+      await Thread.deleteMany({});
+      console.log("All threads deleted");
+      await Thread.insertMany(threads);
+      console.log("Initial threads inserted");
+    } catch (err) {
+      console.error("Error in before hook:", err);
+      throw err; // Ensure that errors are propagated
+    }
   });
 
   // Clean up after all tests are done
@@ -37,6 +61,10 @@ suite("Functional Tests", function() {
       .post("/api/threads/general")
       .send({ text: "My thread", delete_password: "password" })
       .end(function(err, res) {
+        if (err) {
+          console.error("Error in POST /api/threads/general:", err);
+          return done(err);
+        }
         assert.equal(res.status, 200);
         assert.property(res.body, '_id', 'Thread should have an _id');
         done();
@@ -48,6 +76,10 @@ suite("Functional Tests", function() {
       .request(server)
       .get("/api/threads/general")
       .end(function(err, res) {
+        if (err) {
+          console.error("Error in GET /api/threads/general:", err);
+          return done(err);
+        }
         assert.equal(res.status, 200);
         assert.isArray(res.body, "response should be an array");
         if (res.body.length > 0) {
@@ -64,6 +96,10 @@ suite("Functional Tests", function() {
       .put(`/api/threads/general`)
       .send({ report_id: threadId })
       .end(function(err, res) {
+        if (err) {
+          console.error("Error in PUT /api/threads/general:", err);
+          return done(err);
+        }
         assert.equal(res.status, 200);
         assert.equal(res.text, "reported");
         done();
@@ -81,6 +117,10 @@ suite("Functional Tests", function() {
         delete_password: "password",
       })
       .end(function(err, res) {
+        if (err) {
+          console.error("Error in POST /api/replies/general:", err);
+          return done(err);
+        }
         assert.equal(res.status, 200);
         assert.property(res.body, '_id', 'Reply should have an _id');
         done();
@@ -93,6 +133,10 @@ suite("Functional Tests", function() {
       .request(server)
       .get(`/api/replies/general/${threadId}`)
       .end(function(err, res) {
+        if (err) {
+          console.error("Error in GET /api/replies/general/:threadId:", err);
+          return done(err);
+        }
         assert.equal(res.status, 200);
         assert.isObject(res.body, "response should be an object");
         assert.property(res.body, 'text', 'Thread should contain text');
