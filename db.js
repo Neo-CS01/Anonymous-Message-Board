@@ -7,11 +7,10 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: tr
 
 const db = mongoose.connection;
 
+// Event listeners for MongoDB connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
 module.exports = db;
-
-
