@@ -10,21 +10,18 @@ suite("Functional Tests", function() {
   this.timeout(20000); // Increase timeout to 20 seconds
 
   // Ensure server is properly set up and tests run sequentially
-  before(function(done) {
-    if (server.listening) {
-      console.log("Server is already running");
+ before(function(done) {
+  this.timeout(5000); // Increase timeout to 5000ms
+  mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log('Database connected');
       done();
-    } else {
-      server.on("listening", function() {
-        console.log("Server is running");
-        done();
-      });
-      server.on("error", function(err) {
-        console.error("Server failed to start:", err);
-        done(err);
-      });
-    }
-  });
+    })
+    .catch(err => {
+      console.error('Database connection error:', err);
+      done(err);
+    });
+});
 
   before(async function() {
     this.timeout(10000); // Increase timeout for this hook to 10 seconds
