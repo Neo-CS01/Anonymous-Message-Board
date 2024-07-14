@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 const { describe, before, test, after } = require('mocha');
 const chaiHttp = require("chai-http");
 const chai = require("chai");
@@ -6,13 +6,12 @@ const assert = chai.assert;
 const server = require("../server");
 const { threads } = require("../mock/threads");
 const Thread = require('../models/Thread');
-const mongoose = require('mongoose'); // Add this line
+const mongoose = require('mongoose');
 chai.use(chaiHttp);
 
 suite("Functional Tests", function() {
   this.timeout(20000); // Increase timeout to 20 seconds
 
-  // Ensure server is properly set up and tests run sequentially
   before(function(done) {
     this.timeout(5000); // Increase timeout to 5000ms
     mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -47,8 +46,8 @@ suite("Functional Tests", function() {
     }
   });
 
-  // Clean up after all tests are done
   after(function(done) {
+    mongoose.disconnect(); // Disconnect from database after all tests
     server.close(function() {
       console.log("Server closed");
       done();
