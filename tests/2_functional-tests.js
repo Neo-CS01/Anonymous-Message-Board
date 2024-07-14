@@ -4,24 +4,25 @@ const assert = chai.assert;
 const server = require("../server");
 const { threads } = require("../mock/threads");
 const Thread = require('../models/Thread');
+const mongoose = require('mongoose'); // Add this line
 chai.use(chaiHttp);
 
 suite("Functional Tests", function() {
   this.timeout(20000); // Increase timeout to 20 seconds
 
   // Ensure server is properly set up and tests run sequentially
- before(function(done) {
-  this.timeout(5000); // Increase timeout to 5000ms
-  mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-      console.log('Database connected');
-      done();
-    })
-    .catch(err => {
-      console.error('Database connection error:', err);
-      done(err);
-    });
-});
+  before(function(done) {
+    this.timeout(5000); // Increase timeout to 5000ms
+    mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(() => {
+        console.log('Database connected');
+        done();
+      })
+      .catch(err => {
+        console.error('Database connection error:', err);
+        done(err);
+      });
+  });
 
   before(async function() {
     this.timeout(10000); // Increase timeout for this hook to 10 seconds
