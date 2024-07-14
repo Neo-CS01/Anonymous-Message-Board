@@ -21,6 +21,7 @@
     "express": "4.17.1",
     "helmet": "4.6.0",
     "mocha": "8.4.0",
+    "mongodb": "^6.8.0",
     "mongoose": "^5.10.9"
   },
   "devDependencies": {
