@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --timeout 50000",
+    "test": "mocha tests/2_functional-tests.js --timeout 50000",
     "type": "module"
   },
   "engines": {
@@ -21,7 +21,6 @@
     "express": "4.17.1",
     "helmet": "4.6.0",
     "mocha": "8.4.0",
-    "mongodb": "^6.8.0",
     "mongoose": "^5.10.9"
   },
   "devDependencies": {
